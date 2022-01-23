@@ -164,6 +164,7 @@
         #search-results {
             height: 350px;
 		    width: 600px;
+		    overflow-x: hidden;
             overflow-y:auto;
             border: 1px solid #ccc;
             border-radius: 10px;
@@ -177,9 +178,6 @@
              border-radius: 8px;
              margin: 0 auto;
              cursor: pointer;
-         }
-         article:hover {
-            border: 2px solid #ccc;
          }
          .thumb {
              height: 100px;
@@ -207,8 +205,8 @@
 <body>
     <img onclick="parent.location='https://classroom.google.com/a/missing/all'" style="cursor: pointer;width:100%" src="https://res.cloudinary.com/mjkui/image/upload/q_100/v1642805870/Screenshot-2022-01-21-5-54-20-PM_rwfupz.png"/>
     <div id="content">
-        <h1 class="controls">Youtube Unblocked</h1>
-        <p class="controls" style="font-size:20px"><i>Bringing the Youtube To Gamers</i></p>
+        <h1 class="controls" style="margin-top:-10px;">Youtube Unblocked</h1>
+        <p class="controls" style="margin-top:0;font-size:20px"><i>Bringing the Youtube To Gamers</i></p>
         <div id="api-available">
             <form class="controls" action="javascript:void(0)" onsubmit="search()">
               <input required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search For A Video On Youtube" id="youtube-url"/>

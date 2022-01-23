@@ -162,7 +162,7 @@
             color: white;
         }
         #search-results {
-            height: 350px;
+            height: 370px;
 		    width: 600px;
 		    overflow-x: hidden;
             overflow-y:auto;
@@ -212,6 +212,7 @@
               <input required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search For A Video On Youtube" id="youtube-url"/>
               <button><img class="lazyload" data-src="https://img.icons8.com/pastel-glyph/36/000000/search--v3.png" style="width:36px;"/></button>
             </form>
+            <center id="loader" style="display:none"><img style="margin-top:0px" src="https://res.cloudinary.com/mjkui/image/upload/v1642953065/ezgif-6-d26e9f87c2_stp3gu.gif"/></center>
             <div id="search-results" style="display:none">
                 <div id="search-results-json"></div>
                 <h3 style="padding: 8px 12px">Looks like that's all the results! Try being more specific!</h3>
@@ -229,7 +230,18 @@
     <script>
         var query, key, URL;
         var options;
-        var api_available;
+
+        var typingTimer;
+        var doneTypingInterval = 500;
+        var $inputyoutube = $('#youtube-url');
+        $inputyoutube.on('keyup', function () {
+           clearTimeout(typingTimer);
+           typingTimer = setTimeout(search, doneTypingInterval);
+        });
+        $inputyoutube.on('keydown', function () {
+           clearTimeout(typingTimer);
+        });
+
         function googlesearch() {
             value = $("#google-url").val();
             window.open("https://google.com/search?q=" + value + "+site:youtube.com", '_blank').focus();
@@ -242,11 +254,14 @@
             $("#search-results").hide();
             $('#search-results-json').html("");
             query = $("#youtube-url").val();
-            URL = 'https://youtube-class-api.herokuapp.com';
-            options = {
-                 q: query
+            if(query){
+               $("#loader").show();
+               URL = 'https://youtube-class-api.herokuapp.com';
+               options = {
+                    q: query
+               }
+               search_json();
             }
-            search_json();
         }
         function search_json(){
             $.getJSON(URL, options, function (data) {
@@ -276,6 +291,7 @@
                  }
              });
              $("#search-results").animate({ scrollTop: 0 }, "fast");
+             $("#loader").hide();
              $("#search-results").show();
         }
         $('#search-results').on('click', 'article', function () {
